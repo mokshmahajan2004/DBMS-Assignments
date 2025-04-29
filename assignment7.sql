@@ -29,7 +29,7 @@ CREATE TABLE Orders (
     FOREIGN KEY (Snum) REFERENCES Salesperson(Snum)
 );
 
--- 3. Insert actual data from PDF
+-- 3. Insert data from the PDF
 
 -- Salesperson
 INSERT INTO Salesperson VALUES 
@@ -61,14 +61,20 @@ INSERT INTO Orders VALUES
 (3008, 4723.00, '1990-04-10', 2006, 1001),
 (3010, 1309.95, '1990-06-10', 2004, 1002);
 
--- 4. Assignment Queries
+-- 4. Show all tables before queries
 
--- a. Salespersons whose names begin with 'A' or 'a'
+SELECT * FROM Salesperson;
+SELECT * FROM Customer;
+SELECT * FROM Orders;
+
+-- 5. Assignment Queries
+
+-- a. Count Salesperson names starting with A/a
 SELECT COUNT(*) 
 FROM Salesperson 
 WHERE Name LIKE 'A%';
 
--- b. Salespersons whose ALL orders > Rs. 2000
+-- b. Salespersons whose ALL orders are > 2000
 SELECT S.Snum, S.Name 
 FROM Salesperson S
 WHERE NOT EXISTS (
@@ -82,18 +88,18 @@ SELECT COUNT(*)
 FROM Salesperson 
 WHERE City = 'New York';
 
--- d. Number of Salespersons in London and Paris (adjusted to available data)
+-- d. Number of Salespersons in London and Paris (Paris not in data, so adjust)
 SELECT City, COUNT(*) AS Num_Salespeople
 FROM Salesperson
 WHERE City IN ('London', 'Paris')
 GROUP BY City;
 
--- e. Orders per Salesperson and their order dates
+-- e. Number of orders per Salesperson and date
 SELECT Snum, OrderDate, COUNT(*) AS Num_Orders
 FROM Orders
 GROUP BY Snum, OrderDate;
 
--- f. Salespeople registering orders each day
+-- f. Salespeople registering orders per day
 SELECT OrderDate, COUNT(DISTINCT Snum) AS Num_Salespeople
 FROM Orders
 GROUP BY OrderDate;
@@ -105,13 +111,13 @@ WHERE Name LIKE 'G%'
 ORDER BY Name 
 LIMIT 1;
 
--- h. Largest orders for Snum 1002 and 1007
+-- h. Largest orders for Salesperson 1002 & 1007
 SELECT Snum, MAX(Amount) AS Max_Order
 FROM Orders
 WHERE Snum IN (1002, 1007)
 GROUP BY Snum;
 
--- i. Max single order > Rs. 3000 per salesperson per day
+-- i. Max single order > 3000 per Salesperson per day
 SELECT Snum, OrderDate, MAX(Amount) AS Max_Order
 FROM Orders
 WHERE Amount > 3000

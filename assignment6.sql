@@ -1,4 +1,8 @@
--- Step 1: Create Employee Table
+-- Step 1: Create Database
+CREATE DATABASE CompanyDB;
+USE CompanyDB;
+
+-- Step 2: Create Employee Table
 CREATE TABLE Employee (
     EmpID INT PRIMARY KEY,
     Name VARCHAR(50),
@@ -8,20 +12,20 @@ CREATE TABLE Employee (
     DepartmentID INT
 );
 
--- Step 2: Create Department Table
+-- Step 3: Create Department Table
 CREATE TABLE Department (
     DepartmentID INT PRIMARY KEY,
     DepartmentName VARCHAR(50)
 );
 
--- Step 3: Insert Sample Data into Department Table
+-- Step 4: Insert Sample Data into Department Table
 INSERT INTO Department (DepartmentID, DepartmentName) VALUES
 (1, 'HR'),
 (2, 'Finance'),
 (3, 'IT'),
 (4, 'Sales');
 
--- Step 4: Insert Sample Data into Employee Table
+-- Step 5: Insert Sample Data into Employee Table
 INSERT INTO Employee (EmpID, Name, JobCategory, Salary, ManagerID, DepartmentID) VALUES
 (101, 'Amit Sharma', 'Manager', 50000, NULL, 1),
 (102, 'Rohit Verma', 'Engineer', 30000, 101, 3),
@@ -33,6 +37,10 @@ INSERT INTO Employee (EmpID, Name, JobCategory, Salary, ManagerID, DepartmentID)
 (108, 'Pooja Mehta', 'Manager', 60000, NULL, 2),
 (109, 'Vikram Choudhary', 'Engineer', 32000, 108, 3),
 (110, 'Anjali Nair', 'Clerk', 14000, 103, 2);
+
+-- Step 6: Display Tables
+SELECT * FROM Employee;
+SELECT * FROM Department;
 
 -- Query 1: Display total salary spent for each job category
 SELECT JobCategory, SUM(Salary) AS TotalSalarySpent
